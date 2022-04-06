@@ -4,9 +4,8 @@ const usersRouter = express.Router()
 usersRouter.use((req, res, next) => {
     console.log("request being made to /users");
     next()
-
 })
-// import getAllUsers from the db folder
+// import getAllUsers from the db folder (must be .. instead of ...)
 const {getAllUsers} = require('../db')
 
 // fires whenever a GET request is made to /api/users
@@ -14,12 +13,9 @@ const {getAllUsers} = require('../db')
 usersRouter.get('/', async (req, res) => {
     const users = await getAllUsers()
     res.send({
-        users: []
+        users
     });
 });
-
-
-
 module.exports = usersRouter
 
 

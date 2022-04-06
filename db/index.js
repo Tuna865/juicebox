@@ -14,7 +14,6 @@ async function getAllUsers() {
     return rows;
 }
 async function getAllPosts() {
-    // remember semicolons for SQL commands or it gets mad
    const {rows: postIds} = await client.query(
        `SELECT id
         FROM posts;`
@@ -24,6 +23,14 @@ async function getAllPosts() {
         post => getPostById(post.id)
     ))
     return posts;
+}
+
+async function getAllTags() {
+  const {rows} = await client.query(
+    `SELECT * 
+    FROM tags;`
+  );
+  return rows;
 }
 
 async function createUser({ username, password, name, location }) {
@@ -281,6 +288,7 @@ module.exports = {
     client,
     getAllUsers,
     getAllPosts,
+    getAllTags,
     getPostsByUser,
     getPostById,
     getPostsByTagName,

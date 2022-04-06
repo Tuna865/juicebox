@@ -2,11 +2,10 @@ const express = require("express")
 const postsRouter = express.Router()
 // use Router to create a new router and export it 
 postsRouter.use((req, res, next) => {
-    console.log("request being made to /users");
+    console.log("request being made to /posts");
     next()
-
 })
-// import getAllUsers from the db folder
+// import getAllPosts from the db folder (must be .. instead of ...)
 const {getAllPosts} = require('../db')
 
 // fires whenever a GET request is made to /api/posts
@@ -14,10 +13,7 @@ const {getAllPosts} = require('../db')
 postsRouter.get('/', async (req, res) => {
     const posts = await getAllPosts()
     res.send({
-        posts: []
+        posts
     });
 });
-
-
-
 module.exports = postsRouter

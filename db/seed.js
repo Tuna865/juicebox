@@ -231,4 +231,4 @@ async function testDB() {
 rebuildDB()
     .then(testDB)
     .catch(console.error)
-    .finally(() => client.end);
+    .finally(() => client.end());
