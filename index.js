@@ -1,6 +1,11 @@
-const PORT = 3000;
+require('dotenv').config();
+// remove/hide this once it is confirmed working 
+// console.log(process.env.JWT_SECRET)
+// const PORT = 3000;
+const PORT = process.env.PORT || 3000
 const express = require('express');
 const server = express();
+
 const {client} = require('./db')
 client.connect()
 
@@ -15,9 +20,9 @@ server.use(morgan("dev"));
 server.use(express.json())
 
 server.use((req, res, next) => {
-    console.log("<____Body Logger START____>");
+    console.log("Body Logger START....");
     console.log(req.body);
-    console.log("<_____Body Logger END_____>");
+    console.log("....Body Logger END");
   
     next();
   });
