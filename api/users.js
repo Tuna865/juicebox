@@ -35,7 +35,9 @@ usersRouter.post('/login', async (req, res, next) => {
       if (user && user.password == password) {
         // create token & return to user
         console.log("process.env.JWT_SECRET",process.env.JWT_SECRET)
-        const token = jwt.sign(user, process.env.JWT_SECRET)
+        const token = jwt.sign({ id: user.id, username: username }, process.env.JWT_SECRET,{
+            expiresIn: '1w'
+          } );
         console.log("token",token)
         const verifiedData = jwt.verify(token, process.env.JWT_SECRET)
         console.log("verifiedData",verifiedData)
@@ -54,7 +56,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
   });
 
-  usersRouter.post('/register', async (req, res, next) => {
+usersRouter.post('/register', async (req, res, next) => {
     const { username, password, name, location } = req.body;
   
     try {

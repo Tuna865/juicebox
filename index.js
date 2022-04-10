@@ -28,16 +28,16 @@ server.use((req, res, next) => {
   });
 
   /* these routes will be defined:
-    POST /api/users/register
-    POST /api/users/login
+    POST /api/users/register    done
+    POST /api/users/login      done 
     DELETE /api/users/:id
 
-    GET /api/posts
+    GET /api/posts   sorta done
     POST /api/posts
     PATCH /api/posts/:id
     DELETE /api/posts/:id
 
-    GET /api/tags
+    GET /api/tags    done
     GET /api/tags/:tagName/posts
   */
 

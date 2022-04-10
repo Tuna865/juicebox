@@ -88,7 +88,7 @@ async function updateUser(id, fields = {}) {
       throw error;
     }
   }
-  async function updatePost(postId, fields = {}) {
+async function updatePost(postId, fields = {}) {
     // read off the tags & remove that field 
     const { tags } = fields; // might be undefined
     delete fields.tags;
