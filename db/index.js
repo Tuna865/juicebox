@@ -3,7 +3,7 @@ they can be called from seed.js but also from the main application file    */
 
 const { Client } = require('pg');
 // give the name & location of the database
-const client = new Client('postgres://localhost:5432/juicebox-dev');
+const client = new Client(process.env.DATABASE_URL || 'postgres://localhost:5432/juicebox-dev');
 
 async function getAllUsers() {
     // remember semicolons for SQL commands or it gets mad
