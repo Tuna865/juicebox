@@ -138,7 +138,7 @@ async function updatePost(postId, fields = {}) {
   }
 
   // these next two functions enable us to get the user's posts along with their other info 
-  async function getPostsByUser(userId) {
+async function getPostsByUser(userId) {
     try {
       const { rows: postIds } = client.query(`
       SELECT id 
@@ -156,7 +156,7 @@ async function updatePost(postId, fields = {}) {
       throw error;
     }
   }
-  async function getUserById(userId){
+async function getUserById(userId){
       try{
           const {rows: [user]} = await client.query(`
           SELECT id, username, name, location, active
@@ -175,8 +175,6 @@ async function updatePost(postId, fields = {}) {
           throw error;
       }
   }
-
-
 async function getUserByUsername(username) {
   try {
     const { rows: [user] } = await client.query(`
@@ -190,16 +188,21 @@ async function getUserByUsername(username) {
     throw error;
   }
 }
-
-
-  async function getPostById(postId) {
+async function getPostById(postId) {
     try {
       const { rows: [ post ]  } = await client.query(`
         SELECT *
         FROM posts
         WHERE id=$1;
       `, [postId]);
-  
+      // if there is no post the error gets thrown early, 
+      // tags & author info dont get attached
+      if (!post) {
+        throw {
+          name: "PostNotFoundError",
+          message: "Could not find a post with that postId"
+        };
+      }
       const { rows: tags } = await client.query(`
         SELECT tags.*
         FROM tags
@@ -223,8 +226,7 @@ async function getUserByUsername(username) {
       throw error;
     }
   }
-
-  async function getPostsByTagName(tagName) {
+async function getPostsByTagName(tagName) {
     try {
       const { rows: postIds } = await client.query(`
         SELECT posts.id
@@ -241,7 +243,6 @@ async function getUserByUsername(username) {
       throw error;
     }
   } 
-
 async function createTags(tagList){
     // end early if the tag list is nothing
     if(tagList.length === 0){return;}
@@ -275,7 +276,6 @@ async function createTags(tagList){
         throw error
     }
 }
-
 async function createPostTag(postId, tagId) {
     try {
       await client.query(`

@@ -14,11 +14,15 @@ tagsRouter.get('/', async (req, res) => {
         tags
     });
 });
+// not quite sure this works but the inactive post does not show up 
 tagsRouter.get('/:tagName/posts', async (req, res, next)=> {
-
+    const { tagName } = req.params
     try{
         console.log("retrieving tagged posts...")
-        const taggedPosts = await getPostsByTagName()
+        const activePosts = allPosts.filter(post => {
+            return post.active || (req.user && post.author.id === req.user.id);
+          });
+        const taggedPosts = await getPostsByTagName(tagName)
         console.log("taggedPosts:", taggedPosts)
         res.send({posts: taggedPosts})
 
