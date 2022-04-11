@@ -30,15 +30,15 @@ server.use((req, res, next) => {
   /* these routes will be defined:
     POST /api/users/register    done
     POST /api/users/login      done 
-    DELETE /api/users/:id
+    DELETE /api/users/:id       
 
-    GET /api/posts   sorta done
-    POST /api/posts
-    PATCH /api/posts/:id
-    DELETE /api/posts/:id
+    GET /api/posts   done (but not in heroku app for some reason)
+    POST /api/posts    done 
+    PATCH /api/posts/:id     sorta done 
+    DELETE /api/posts/:id     done
 
     GET /api/tags    done
-    GET /api/tags/:tagName/posts
+    GET /api/tags/:tagName/posts    done
   */
 
 const apiRouter = require('./api');

@@ -89,7 +89,8 @@ postsRouter.delete('/:postId', requireUser, async (req, res, next) => {
   });
 
 // fires whenever a GET request is made to /api/posts
-// returns an object with an empty array 
+/* this works when in the terminal/console but when 
+in the Heroku app it says allPosts is not defined for some reason */
 postsRouter.get('/', async (req, res, next) => {
     try {
       const allPosts = await getAllPosts();
